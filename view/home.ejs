@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL</title>
+    <style>
+        :root{
+        --bg-color:#191f36;
+        --snd-bf-color:#262B40;
+        --text-color:#fff;
+        --main-color:#59B2F4;
+    }
+    html{
+    color: var(--bg-color);
+    background-color: var(--text-color);
+}
+
+body{
+    color: var(--bg-color);
+    background-color: var(--text-color);
+}
+        h1{
+            text-align: center;
+            background-color: #aaaaaa;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        button{
+            margin-left: 40%;
+            margin-top: 10%;
+            width: 5rem;
+        }
+        th,td {
+  border-style: solid;
+}
+form{
+    font-size:2rem;
+}
+form input{
+    height: 2rem;
+    font-size: 1.5rem;
+}
+td{
+    padding: 10px 10px;
+}
+button{
+    background-color: var(--main-color);
+    color: var(--text-color);
+    height: 2rem;
+    width: 5rem;
+    margin: 1rem 40%;
+    border-radius: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <% if(locals.id) { %>
+        <p>Shortened URL ID: http://localhost:8000/url/<%- id %></p>
+    <% } %>
+    <div>
+        <form method="POST"  action="/url ">
+            <label for="url">Enter the URL</label>
+            <input type="text" name="url" placeholder="https://example.com" required><br>
+            <button type="submit">Generate</button>
+                </form>
+    </div>
+    <div>
+        <% if(locals.urls) { %> 
+            <table>
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Short ID</th>
+                        <th>Redirect URL</th>
+                        <th>Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><a id="link" href="http://localhost:8000/url/<%= url.shortid %>">http://localhost:8000/url/<%= url.shortid %></a></td>
+                            <td><%= url.redirecturl %></td>
+                            <td><%= url.visithistory.length %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } %> 
+    </div>
+    
+</body>
+</html>
